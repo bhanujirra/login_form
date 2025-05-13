@@ -2,7 +2,7 @@
 function  Mri() {
   return (
     <div>
-      <h1>Succesfully forwarding the certificates</h1>
+      <h1>Succesfully forwarded the certificates</h1>
       </div>
   );
 }

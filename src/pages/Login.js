@@ -4,15 +4,26 @@ import { useNavigate } from 'react-router-dom';
 import '../css/Login.css';
 import '../css/Mri.css';
 
+function LoadingSpinner() {
+  return (
+    <div className="spinner-container">
+      <div className="spinner"></div>
+      <p>Processing your request...</p>
+    </div>
+  );
+}
+
 function Login() {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
         try {
           const response = await fetch('http://127.0.0.1:8000/login', {
             method: 'POST',
@@ -40,22 +51,26 @@ function Login() {
 
     return(
         <div className="login">
+         { isLoading ? <LoadingSpinner />:(
             <form onSubmit={handleLogin} className="login-form">
-                <h1>Login</h1>
+                <h1>MRI LOGIN</h1>
                 <input 
                     type="text" 
                     placeholder="MRI Username" 
                     value={username}
+                    className="login-username"
                     onChange={(e) => setUsername(e.target.value)}
                 />
                 <input 
                     type="password" 
                     placeholder="Password" 
                     value={password}
+                    className="login-password"
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <button type="submit" className="login-button">Login</button>
+                <button type="submit" className="login-button" disabled={isLoading}>Login</button>
                 </form>
+      )}
         </div>
     );
 }
