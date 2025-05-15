@@ -40,12 +40,16 @@ function Login() {
             navigate('/mri-auto'); // Navigate to the MRI page on successful login
             // You can navigate to a new page here if needed
           } else {
-            console.error('Login failed:', data.message);
-            navigate('/mri-auto');
+            setIsLoading(false)
+            console.error('Login failed:', data.detail);
+            alert('Login failed: ' + data.detail);
+            setUsername("");
+            setPassword("");
+            navigate('/login');
           }
         } catch (error) {
-          console.error('Error during login:', error);
-          navigate('/mri-auto');
+          console.error('Network Error :', error);
+          navigate('/login');
         }
       };
 
